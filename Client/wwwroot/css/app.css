@@ -25,6 +25,7 @@ body, html {
 
 .row {
     display: flex;
+    font-size: .1em;
 }
 
 .cell {

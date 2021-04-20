@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ConwayBlazor.Models
+namespace ConwayBlazor.Client
 {
     public class World
     {
@@ -24,7 +24,7 @@ namespace ConwayBlazor.Models
             };
 
             Reset();
-            SetRefreshFrequency(10);
+            SetRefreshFrequency(1000);
         }
 
         public void Reset()

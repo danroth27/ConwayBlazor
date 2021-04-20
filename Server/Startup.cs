@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConwayBlazor.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
-namespace ConwayBlazor
+namespace ConwayBlazor.Server
 {
     public class Startup
     {
@@ -26,15 +22,9 @@ namespace ConwayBlazor
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
 
-            services.AddScoped<World>((ctx) =>
-            {
-                var world = new World(40, 80);
-                world.Start();
-                return world;
-            });
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +33,7 @@ namespace ConwayBlazor
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseWebAssemblyDebugging();
             }
             else
             {
@@ -52,14 +43,16 @@ namespace ConwayBlazor
             }
 
             app.UseHttpsRedirection();
+            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }
