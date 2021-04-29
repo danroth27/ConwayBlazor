@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace ConwayBlazor.Client
@@ -9,6 +10,7 @@ namespace ConwayBlazor.Client
         private readonly int _sizeY;
         private readonly bool[][,] _cells;
         private int _refreshDelay;
+        private Stopwatch _stopwatch = new Stopwatch();
         
         public World(int sizeX, int sizeY)
         {
@@ -41,10 +43,13 @@ namespace ConwayBlazor.Client
                     _cells[1][x,y] = rand.NextDouble() > .6;
                 }
             }
+
+            _stopwatch.Reset();
         }
 
         public void Start()
         {
+            _stopwatch.Start();
             Task.Run(async () =>
             {
                 while (true)
@@ -58,8 +63,17 @@ namespace ConwayBlazor.Client
             });
         }
 
-        public void TogglePause(){
+        public void TogglePause()
+        {
             Paused = !Paused;
+            if (Paused)
+            {
+                _stopwatch.Stop();
+            }
+            else
+            {
+                _stopwatch.Start();
+            }
         }
 
         public void SetRefreshFrequency(int frequency)
@@ -122,6 +136,8 @@ namespace ConwayBlazor.Client
 
         public int Generation { get; private set; }
         public int Population { get; private set; }
+        public TimeSpan ElapsedTime => _stopwatch.Elapsed;
+        public double Rate => Generation / _stopwatch.Elapsed.TotalSeconds;
         public bool Paused {get; private set;}
         public event Func<Task> OnChangeAsync;
         private void NotifyStateChanged() => OnChangeAsync?.Invoke();
