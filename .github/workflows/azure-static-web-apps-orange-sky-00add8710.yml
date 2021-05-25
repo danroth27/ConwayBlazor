@@ -24,6 +24,7 @@ jobs:
           include-prerelease: true
       - run: |
           cd Client
+          dotnet --version
           dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
           dotnet publish -c Release -o out
       - name: Build And Deploy
