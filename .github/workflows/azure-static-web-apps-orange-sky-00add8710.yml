@@ -62,6 +62,7 @@ jobs:
           # skip_app_build: true
         env:
           PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && echo "Python Version..." && python3 --version
+          PYTHON_VERSION: 3.5.3
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
