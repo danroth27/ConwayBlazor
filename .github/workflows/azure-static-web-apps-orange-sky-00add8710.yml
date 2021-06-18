@@ -61,7 +61,7 @@ jobs:
           output_location: "wwwroot"
           # skip_app_build: true
         env:
-          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
+          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && echo "Python Version..." && python --version
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
