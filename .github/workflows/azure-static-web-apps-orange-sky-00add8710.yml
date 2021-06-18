@@ -36,7 +36,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    needs: build_job
+    # needs: build_job
     steps:
     #   - uses: actions/download-artifact@v2
     #     with:
