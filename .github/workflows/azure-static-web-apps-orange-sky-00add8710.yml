@@ -61,7 +61,7 @@ jobs:
           output_location: "wwwroot"
           # skip_app_build: true
         env:
-          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && echo "Python location..." && which python3 && which python && echo $PATH
+          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && echo "Python location..." && which python3 && which python && echo $PATH && sudo ln -s `which python3` /usr/local/bin/python
           PYTHON_VERSION: 3.5.3
           ###### End of Repository/Build Configurations ######
 
