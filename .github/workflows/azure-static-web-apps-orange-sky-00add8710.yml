@@ -61,7 +61,7 @@ jobs:
           output_location: "wwwroot"
           # skip_app_build: true
         env:
-          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && apt install -y python3.8 && python --version && python3 --version && echo $PATH #&& ln -s `which python3` /usr/local/bin/python
+          PRE_BUILD_COMMAND: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot && add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y python3.8 && python --version && python3 --version && echo $PATH && ln -s `which python3` /usr/local/bin/python
           PYTHON_VERSION: 3.5.3
           ###### End of Repository/Build Configurations ######
 
